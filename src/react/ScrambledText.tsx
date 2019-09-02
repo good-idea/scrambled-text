@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { scramble, ScrambleOptions } from '../scramble'
 
-const { useState, useEffect, useMemo } = React
+const { useState, useEffect } = React
 
 interface ScrambledTextProps {
   /* The text to be scrambled */
@@ -32,9 +32,7 @@ export const ScrambledText = ({
   interval,
   duration,
 }: ScrambledTextProps) => {
-  // const initialTime = useMemo(() => new Date().getTime(), [])
   const [initialTime] = useState(new Date().getTime())
-  // console.log(initialTime)
   const [currentText, setCurrentText] = useState(scramble(text, config))
 
   useEffect(() => {

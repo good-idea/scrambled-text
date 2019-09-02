@@ -1,4 +1,10 @@
-import { identity, split, pipe, filter, slice, reverse } from 'lodash/fp'
+// import { split, pipe, filter, slice, reverse } from 'lodash/fp'
+import identity from 'lodash/fp/identity'
+import pipe from 'lodash/fp/pipe'
+import filter from 'lodash/fp/filter'
+import slice from 'lodash/fp/slice'
+import split from 'lodash/fp/split'
+import reverse from 'lodash/fp/reverse'
 
 export interface ScrambleOptions {
   /* Number from 0-1. Determines the % of characters that should be scrambled
@@ -87,7 +93,6 @@ export const scramble = (
   const scrambleChar = scrambleCharWithCharSet(charSet)
 
   const scrambleLimit = Math.round(config.amount * text.length)
-  const characterIndices = text.split('').reverse()
 
   const characterIsUnscrambled = (index: number): boolean =>
     config.previousText && config.previousText.length

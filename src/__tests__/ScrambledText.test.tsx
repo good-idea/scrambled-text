@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as lolex from 'lolex'
-import { act, wait, render, fireEvent } from '@testing-library/react'
+import { act, wait, render } from '@testing-library/react'
 import { ScrambledText } from '../react'
 
 jest.useFakeTimers()
@@ -8,14 +8,14 @@ jest.useFakeTimers()
 describe('ScrambledText', () => {
   it('should render scrambled text', async () => {
     const text = 'i love frank'
-    const { container, debug } = render(<ScrambledText text={text} />)
+    const { container } = render(<ScrambledText text={text} />)
 
     expect(container.textContent.length).toBe(text.length)
   })
 
   it('should display new scrambled text at intervals', async () => {
     const text = 'i love frank'
-    const { container, debug } = render(<ScrambledText text={text} />)
+    const { container } = render(<ScrambledText text={text} />)
     // expect(a).toBe(b)
     const text1 = container.textContent
     act(() => jest.advanceTimersByTime(100))
@@ -25,9 +25,7 @@ describe('ScrambledText', () => {
 
   it('should not cycle through new scrambled text when running === false', async () => {
     const text = 'i love frank'
-    const { container, debug } = render(
-      <ScrambledText running={false} text={text} />,
-    )
+    const { container } = render(<ScrambledText running={false} text={text} />)
 
     const text1 = container.textContent
     act(() => jest.advanceTimersByTime(100))
@@ -37,9 +35,7 @@ describe('ScrambledText', () => {
 
   it('should render the completed text at the given intervals', async () => {
     const text = 'i love frank'
-    const { container, debug } = render(
-      <ScrambledText interval={100} text={text} />,
-    )
+    const { container } = render(<ScrambledText interval={100} text={text} />)
     const text1 = container.textContent
     act(() => jest.advanceTimersByTime(90)) // -> 90ms
     expect(container.textContent).toBe(text1)
@@ -60,7 +56,7 @@ describe('ScrambledText', () => {
     const config = {
       sequential: true,
     }
-    const { container, debug } = render(
+    const { container } = render(
       <ScrambledText
         interval={100}
         duration={400}
