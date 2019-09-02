@@ -103,4 +103,26 @@ describe('ScrambledText', () => {
     expect(container.textContent).toMatch(/^abcd$/)
     clock.uninstall()
   })
+
+  it('should use a custom Wrapper (tag)', async () => {
+    const text = 'i love frank'
+    const { container } = render(<ScrambledText text={text} wrapper="h1" />)
+    expect(container.querySelector('h1')).toBeTruthy()
+    expect(container.textContent.length).toBe(text.length)
+  })
+
+  it('should use a custom Wrapper (component)', async () => {
+    const text = 'i love frank'
+    const MyComponent = ({ children }: { children: React.ReactNode }) => (
+      <section>
+        <h2>{children}</h2>
+      </section>
+    )
+    const { container } = render(
+      <ScrambledText text={text} wrapper={MyComponent} />,
+    )
+    expect(container.querySelector('section')).toBeTruthy()
+    expect(container.querySelector('h2')).toBeTruthy()
+    expect(container.textContent.length).toBe(text.length)
+  })
 })

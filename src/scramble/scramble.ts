@@ -1,11 +1,19 @@
-// import { identity, split, pipe, filter, slice, reverse } from 'lodash/fp'
-
-import identity from 'lodash/fp/identity'
-import split from 'lodash/fp/split'
-import pipe from 'lodash/fp/flow'
-import filter from 'lodash/fp/filter'
-import slice from 'lodash/fp/slice'
-import reverse from 'lodash/fp/reverse'
+import {
+  shuffle,
+  identity,
+  split,
+  pipe,
+  filter,
+  slice,
+  reverse,
+} from '../utils/fp'
+//
+// import identity from 'lodash-es/identity'
+// import split from 'lodash-es/split'
+// import pipe from 'lodash-es/flow'
+// import filter from 'lodash-es/filter'
+// import slice from 'lodash-es/slice'
+// import reverse from 'lodash-es/reverse'
 
 export interface ScrambleOptions {
   /* Number from 0-1. Determines the % of characters that should be scrambled
@@ -42,17 +50,6 @@ const defaultOptions = {
   preserveCasing: false,
   previousText: undefined,
   characterSet: defaultCharset,
-}
-
-/* Adapted From:
- * https://stackoverflow.com/a/6274381/6402238 */
-function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr]
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
 }
 
 function matchCase(char: string, charToMatch: string): string {
@@ -107,8 +104,8 @@ export const scramble = (
     getIndices,
     reverse,
     config.sequential ? identity : shuffle,
-    slice(0, scrambleLimit),
     config.previousText ? filter(characterIsUnscrambled) : identity,
+    slice(0, scrambleLimit),
   )(text)
 
   return text

@@ -15,7 +15,7 @@
 
 # HsIGpfOwL Rn0y → Scrambled Text
 
-A simple & configurable utility function for scrambling text. Low bundle size, and written in Typescript.
+A simple & configurable utility function for scrambling text. Low bundle size, 0 dependencies, and written in Typescript.
 
 **Bonus** React component `<ScrambledText />` and hook `useScrambledText`
 
@@ -157,16 +157,73 @@ function MyComponent() {
 }
 ```
 
-| prop     | type              | required | default        | description                                                                                                            |
-| -------- | ----------------- | -------- | -------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| text     | `string`          | yes      |                | The text you want to scramble                                                                                          |
-| config   | `ScrambleOptions` | no       | default config | The same configuration options as above                                                                                |
-| running  | `boolean`         | no       | `true`         | When set to `false`, the component will not animate                                                                    |
-| interval | `number`          | no       | `30`           | The interval at which the text will be re-scrambled (in ms)                                                            |
-| duration | `number`          | no       | `3000`         | The total duration of the unscrambling (in ms)                                                                         |
-| reverse  | `boolean`         | no       | `false`        | If `true`, the animation starts with un-scrambled text and progressively scrambles it _⚠️ In development, coming soon_ |
-| wrapper  | `React.Component` | no       | 'span'         | An optional wrapper component _⚠️ In development, coming soon_                                                         |
+`ScrambledTextProps`:
+
+| prop     | type                              | required | default        | description                                                                                                            |
+| -------- | --------------------------------- | -------- | -------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| text     | `string`                          | yes      |                | The text you want to scramble                                                                                          |
+| config   | `ScrambleOptions`                 | no       | default config | The same configuration options as above                                                                                |
+| running  | `boolean`                         | no       | `true`         | When set to `false`, the component will not animate                                                                    |
+| interval | `number`                          | no       | `30`           | The interval at which the text will be re-scrambled (in ms)                                                            |
+| duration | `number`                          | no       | `3000`         | The total duration of the unscrambling (in ms)                                                                         |
+| reverse  | `boolean`                         | no       | `false`        | If `true`, the animation starts with un-scrambled text and progressively scrambles it _⚠️ In development, coming soon_ |
+| wrapper  | `string` or `React.ComponentType` | no       | 'span'         | An optional wrapper component                                                                                          |
+
+#### Examples
+
+With a custom wrapper string:
+
+```ts
+<ScrambledText text="Hello" wrapper="h1" /> // => <h1>W9DS1 Xi6vr<h1>
+```
+
+With a custom wrapper component:
+
+_*If you use this option, make sure your component uses the `children` prop*_
+
+```ts
+const MyWrapper = ({ children }) => (
+  <div>
+    <p>Scrambled:</p>
+    <p>{children}</p>
+  </div>
+)
+
+<ScrambledText text="Hello" wrapper={MyWrapper} />
+// =>
+// <div>
+//    <p>Scrambled:</p>
+//    <p>W9DS1 Xi6vr</p>
+// </div>
+```
 
 ### React: `useScrambledText`
 
-_⚠️ In development, coming soon_
+```ts
+useScrambledText(initialText: string, config: ScrambledTextProps) => {
+  currentText: string,
+  progress: number
+}
+```
+
+This is basically the same behavior as the component, but within a hook. The configuration is the same as the component, but the `wrapper` option will be ignored.
+
+It returns the latest scrambled text (`currentText`) as well as the total progress (`progress`) (`0-1`)
+
+Usage:
+
+```ts
+import { useScrambledText } from 'scrambled-text'
+
+function MyComponent() {
+  const { currentText, progress } = useScrambledText('Hello World', {
+    duration: 10000,
+  })
+  return (
+    <div>
+      <p>{currentText}</p>
+      <h5>Progress: ${Math.round(progress * 100)}%</h5>
+    </div>
+  )
+}
+```
