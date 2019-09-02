@@ -1,6 +1,6 @@
 {
   "name": "scrambled-text",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A simple utility for scrambling & unscrambling text. Includes a React hook",
   "repository": "https://github.com/good-idea/scrambled-text",
   "author": "Joseph Thomas | Good Idea <joseph@good-idea.studio>",
