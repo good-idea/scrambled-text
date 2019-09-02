@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { scramble, ScrambleOptions } from '../scramble'
 
-const { useState, useEffect } = React
+const { useEffect, useReducer } = React
 
 interface ScrambledTextProps {
   /* The text to be scrambled */
@@ -22,7 +22,35 @@ interface ScrambledTextProps {
 
 const defaults = {
   interval: 30,
-  duration: 3000,
+  duration: 10000,
+}
+
+interface State {
+  initialTime: number
+  currentText: string
+  progress: number
+}
+
+interface Action {
+  type: string
+  newText?: string
+  progress?: number
+}
+
+const TICK = 'TICK'
+
+const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case TICK:
+      return {
+        ...state,
+        currentText: action.newText || state.currentText,
+        progress: action.progress || state.progress,
+      }
+
+    default:
+      return state
+  }
 }
 
 export const ScrambledText = ({
@@ -32,8 +60,13 @@ export const ScrambledText = ({
   interval,
   duration,
 }: ScrambledTextProps) => {
-  const [initialTime] = useState(new Date().getTime())
-  const [currentText, setCurrentText] = useState(scramble(text, config))
+  const [state, dispatch] = useReducer(reducer, {
+    initialTime: new Date().getTime(),
+    currentText: scramble(text, config),
+    progress: 0,
+  })
+
+  const { currentText, progress, initialTime } = state
 
   useEffect(() => {
     /** Don't refresh with new values if running is false,
@@ -42,13 +75,17 @@ export const ScrambledText = ({
     if (config && config.amount !== undefined) return () => undefined
     const timeoutId = setTimeout(() => {
       const elapsed = new Date().getTime() - initialTime
-      const amount = 1 - Math.min(1, elapsed / (duration || defaults.duration))
-      setCurrentText(
-        scramble(text, { ...config, amount, previousText: currentText }),
-      )
+      const progress =
+        1 - Math.min(1, elapsed / (duration || defaults.duration))
+      const newText = scramble(text, {
+        ...config,
+        amount: progress,
+        previousText: currentText,
+      })
+      dispatch({ type: TICK, newText, progress })
     }, interval || defaults.interval)
     return () => clearTimeout(timeoutId)
-  }, [currentText])
+  }, [currentText, progress, initialTime])
 
   return <span>{currentText}</span>
 }
