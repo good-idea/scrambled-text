@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/good-idea/scrambled-text/compare/v1.0.1...v1.0.2) (2019-09-02)
+
+
+### Bug Fixes
+
+* fix lodash imports for bundle size ([ce9a5c8](https://github.com/good-idea/scrambled-text/commit/ce9a5c8))
+
 ## [1.0.1](https://github.com/good-idea/scrambled-text/compare/v1.0.0...v1.0.1) (2019-09-02)
 
 
