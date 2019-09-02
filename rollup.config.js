@@ -1,7 +1,5 @@
 import typescript from 'rollup-plugin-typescript2'
-
 import commonjs from 'rollup-plugin-commonjs'
-
 import { sizeSnapshot } from 'rollup-plugin-size-snapshot'
 import pkg from './package.json'
 
@@ -14,6 +12,7 @@ export default {
   external: [
     ...Object.keys(pkg.dependencies || {}),
     ...Object.keys(pkg.peerDependencies || {}),
+    'lodash/fp',
   ],
   plugins: [
     sizeSnapshot(),

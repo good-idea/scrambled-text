@@ -8,6 +8,8 @@ module.exports = {
     'jest.config.js',
   ],
   testEnvironment: 'jsdom',
+
+  transformIgnorePatterns: ['/!node_modules\\/lodash-es/'],
   collectCoverageFrom: ['./src/**/*.{ts,tsx}'],
   transform: {
     '^.+\\.tsx?$': 'ts-jest',

@@ -1,4 +1,10 @@
-import { identity, split, pipe, filter, slice, reverse } from 'lodash-es'
+import { identity, split, pipe, filter, slice, reverse } from 'lodash/fp'
+// import identity from 'lodash/identity'
+// import split from 'lodash/split'
+// import pipe from 'lodash/flow'
+// import filter from 'lodash/filter'
+// import slice from 'lodash/slice'
+// import reverse from 'lodash/reverse'
 
 export interface ScrambleOptions {
   /* Number from 0-1. Determines the % of characters that should be scrambled
@@ -48,7 +54,7 @@ function shuffle<T>(arr: T[]): T[] {
   return a
 }
 
-function matchCase(char: string, charToMatch: string) {
+function matchCase(char: string, charToMatch: string): string {
   if (/[A-Z]/.test(charToMatch)) return char.toUpperCase()
   if (/[a-z]/.test(charToMatch)) return char.toLowerCase()
   return char
@@ -60,7 +66,7 @@ function randomFromArray<T>(arr: T[]): T {
 }
 
 export const scrambleCharWithCharSet = (charset: string[]) => {
-  function scrambleChar(char) {
+  function scrambleChar(char: string): string {
     if (char.length > 1)
       throw new Error(
         `You can only scramble one character at a time. Received: ${char}`,
@@ -74,6 +80,8 @@ export const scrambleCharWithCharSet = (charset: string[]) => {
 
   return scrambleChar
 }
+
+const getIndices = <T>(arr: T[]): number[] => arr.map((_, index) => index)
 
 export const scramble = (
   text: string,
@@ -92,8 +100,6 @@ export const scramble = (
     config.previousText && config.previousText.length
       ? config.previousText.charAt(index) !== text.charAt(index)
       : true
-
-  const getIndices = <T>(arr: T[]): number[] => arr.map((_, index) => index)
 
   const charactersToScramble = pipe(
     split(''),

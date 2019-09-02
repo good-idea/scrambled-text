@@ -1,8 +1,4 @@
-
-import {
-  scramble,
-  scrambleCharWithCharSet,
-} from '../scramble'
+import { scramble, scrambleCharWithCharSet } from '../scramble'
 
 jest.useFakeTimers()
 
@@ -113,11 +109,11 @@ describe('scramble', () => {
 
     const upcase = /[A-Z]/
     const lowercase = /[a-z]/
-    const number = /\d/
+    const digit = /\d/
 
     initialText.split('').forEach((character, index) => {
       const scrambledChar = scrambled[index]
-      if (number.test(scrambledChar)) return
+      if (digit.test(scrambledChar)) return
       if (upcase.test(character)) {
         expect(scrambledChar).toMatch(upcase)
       } else if (lowercase.test(character)) {
@@ -161,4 +157,3 @@ describe('scramble', () => {
     expect(scramble('abcd', { previousText: 'ab7z', amount: 0 })).toMatch(/^ab/)
   })
 })
-

@@ -38,8 +38,8 @@ export const ScrambledText = ({
   useEffect(() => {
     /** Don't refresh with new values if running is false,
      * or if the user is supplying their own 'amount' for the config */
-    if (running === false) return () => {}
-    if (config && config.amount !== undefined) return () => {}
+    if (running === false) return () => undefined
+    if (config && config.amount !== undefined) return () => undefined
     const timeoutId = setTimeout(() => {
       const elapsed = new Date().getTime() - initialTime
       const amount = 1 - Math.min(1, elapsed / (duration || defaults.duration))
