@@ -1,11 +1,11 @@
-import { identity, split, pipe, filter, slice, reverse } from 'lodash/fp'
+// import { identity, split, pipe, filter, slice, reverse } from 'lodash/fp'
 
-// import identity from 'lodash/fp/identity'
-// import split from 'lodash/fp/split'
-// import pipe from 'lodash/fp/flow'
-// import filter from 'lodash/fp/filter'
-// import slice from 'lodash/fp/slice'
-// import reverse from 'lodash/fp/reverse'
+import identity from 'lodash/fp/identity'
+import split from 'lodash/fp/split'
+import pipe from 'lodash/fp/flow'
+import filter from 'lodash/fp/filter'
+import slice from 'lodash/fp/slice'
+import reverse from 'lodash/fp/reverse'
 
 export interface ScrambleOptions {
   /* Number from 0-1. Determines the % of characters that should be scrambled
