@@ -13,7 +13,7 @@ interface ScrambledTextProps {
   /* Config for the scrambler */
   config?: Partial<ScrambleOptions>
   /* The interval at which the text should be re-scrambled, in MS
-   * default: 50 */
+   * default: 30 */
   interval?: number
   /* The total duration of the "scrambling", in MS.
    * default: 3000 */
@@ -21,7 +21,7 @@ interface ScrambledTextProps {
 }
 
 const defaults = {
-  interval: 50,
+  interval: 30,
   duration: 3000,
 }
 

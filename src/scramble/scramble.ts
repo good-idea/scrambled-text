@@ -16,7 +16,7 @@ export interface ScrambleOptions {
    * default: false */
   sequential: boolean
   /* If true, does not un-scramble white-space.
-   * default: true */
+   * default: false */
   preserveWhitespace: boolean
   /* If true, scrambled characters will match the casing of the final text.
    * default: false */
