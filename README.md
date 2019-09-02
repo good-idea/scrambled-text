@@ -15,7 +15,7 @@
 
 # HsIGpfOwL Rn0y → Scrambled Text
 
-A simple & configurable utility function for scrambling text. Low bundle size, and written in Typescript.
+A simple & configurable utility function for scrambling text. Low bundle size, 0 dependencies, and written in Typescript.
 
 **Bonus** React component `<ScrambledText />` and hook `useScrambledText`
 
