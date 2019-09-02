@@ -1,3 +1,16 @@
+# [1.1.0](https://github.com/good-idea/scrambled-text/compare/v1.0.2...v1.1.0) (2019-09-02)
+
+
+### Bug Fixes
+
+* fix previousText bug ([cd2a040](https://github.com/good-idea/scrambled-text/commit/cd2a040))
+* fix tslint error ([efc3a8b](https://github.com/good-idea/scrambled-text/commit/efc3a8b))
+
+
+### Features
+
+* add useScrambledText hook ([0449c0c](https://github.com/good-idea/scrambled-text/commit/0449c0c))
+
 ## [1.0.2](https://github.com/good-idea/scrambled-text/compare/v1.0.1...v1.0.2) (2019-09-02)
 
 
