@@ -1,3 +1,12 @@
+## [1.0.1](https://github.com/good-idea/scrambled-text/compare/v1.0.0...v1.0.1) (2019-09-02)
+
+
+### Bug Fixes
+
+* fix default sequential param ([d0b0140](https://github.com/good-idea/scrambled-text/commit/d0b0140))
+* remove scrambleWithCharset export ([825b436](https://github.com/good-idea/scrambled-text/commit/825b436))
+* set a better default interval ([a2dbb41](https://github.com/good-idea/scrambled-text/commit/a2dbb41))
+
 # 1.0.0 (2019-09-02)
 
 
