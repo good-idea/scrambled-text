@@ -107,10 +107,9 @@ export const scramble = (
 
   return text
     .split('')
-    .map((char, index, array) => {
+    .map((char, index) => {
       if (config.preserveWhitespace && /\s/.test(char)) return char
       if (!charactersToScramble.includes(index)) return char
-
       const scrambled = scrambleChar(char)
       return config.preserveCasing ? matchCase(scrambled, char) : scrambled
     })

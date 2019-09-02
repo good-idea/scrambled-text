@@ -3,6 +3,8 @@ import * as lolex from 'lolex'
 import { act, wait, render, fireEvent } from '@testing-library/react'
 import { ScrambledText } from '../react'
 
+jest.useFakeTimers()
+
 describe('ScrambledText', () => {
   it('should render scrambled text', async () => {
     const text = 'i love frank'

@@ -1,2 +1,2 @@
 export * from './ScrambledText'
-export * from './useScrambledText'
+// export * from './useScrambledText'

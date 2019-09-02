@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { scramble, ScrambleOptions } from './scramble'
+import { scramble, ScrambleOptions } from '../scramble'
 
 const { useState, useEffect, useMemo } = React
 
@@ -40,8 +40,8 @@ export const ScrambledText = ({
   useEffect(() => {
     /** Don't refresh with new values if running is false,
      * or if the user is supplying their own 'amount' for the config */
-    if (running === false) return
-    if (config && config.amount !== undefined) return
+    if (running === false) return () => {}
+    if (config && config.amount !== undefined) return () => {}
     const timeoutId = setTimeout(() => {
       const elapsed = new Date().getTime() - initialTime
       const amount = 1 - Math.min(1, elapsed / (duration || defaults.duration))
