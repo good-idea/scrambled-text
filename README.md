@@ -157,16 +157,57 @@ function MyComponent() {
 }
 ```
 
-| prop     | type              | required | default        | description                                                                                                            |
-| -------- | ----------------- | -------- | -------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| text     | `string`          | yes      |                | The text you want to scramble                                                                                          |
-| config   | `ScrambleOptions` | no       | default config | The same configuration options as above                                                                                |
-| running  | `boolean`         | no       | `true`         | When set to `false`, the component will not animate                                                                    |
-| interval | `number`          | no       | `30`           | The interval at which the text will be re-scrambled (in ms)                                                            |
-| duration | `number`          | no       | `3000`         | The total duration of the unscrambling (in ms)                                                                         |
-| reverse  | `boolean`         | no       | `false`        | If `true`, the animation starts with un-scrambled text and progressively scrambles it _⚠️ In development, coming soon_ |
-| wrapper  | `React.Component` | no       | 'span'         | An optional wrapper component _⚠️ In development, coming soon_                                                         |
+| prop     | type                       | required | default        | description                                                                                                            |
+| -------- | -------------------------- | -------- | -------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| text     | `string`                   | yes      |                | The text you want to scramble                                                                                          |
+| config   | `ScrambleOptions`          | no       | default config | The same configuration options as above                                                                                |
+| running  | `boolean`                  | no       | `true`         | When set to `false`, the component will not animate                                                                    |
+| interval | `number`                   | no       | `30`           | The interval at which the text will be re-scrambled (in ms)                                                            |
+| duration | `number`                   | no       | `3000`         | The total duration of the unscrambling (in ms)                                                                         |
+| reverse  | `boolean`                  | no       | `false`        | If `true`, the animation starts with un-scrambled text and progressively scrambles it _⚠️ In development, coming soon_ |
+| wrapper  | `string | React.Component` | no       | 'span'         | An optional wrapper component                                                                                          |
+
+#### Examples
+
+With a custom wrapper string:
+
+```ts
+<ScrambledText text="Hello" wrapper="h1" /> // => <h1>W9DS1 Xi6vr<h1>
+```
+
+With a custom wrapper component:
+_*If you use this option, make sure you use the `children` prop*_
+
+```ts
+const MyWrapper = ({ children }) => (
+  <div>
+    <p>Scrambled:</p>
+    <p>{children}</p>
+  </div>
+)
+
+<ScrambledText text="Hello" wrapper={MyWrapper} />
+// =>
+// <div>
+//    <p>Scrambled:</p>
+//    <p>W9DS1 Xi6vr</p>
+// </div>
+```
 
 ### React: `useScrambledText`
 
-_⚠️ In development, coming soon_
+```ts
+import { useScrambledText } from 'scrambled-text'
+
+function MyComponent() {
+  const { currentText, progress } = useScrambledText('Hello World', {
+    duration: 10000,
+  })
+  return (
+    <div>
+      <p>{currentText}</p>
+      <h5>Progress: ${Math.round(progress * 100)}%</h5>
+    </div>
+  )
+}
+```
