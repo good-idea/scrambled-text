@@ -1,11 +1,11 @@
 {
   "lib/index.js": {
-    "bundled": 5013,
+    "bundled": 5032,
     "minified": 2711,
     "gzipped": 1231
   },
   "lib/index.es.js": {
-    "bundled": 4889,
+    "bundled": 4908,
     "minified": 2592,
     "gzipped": 1177,
     "treeshaked": {

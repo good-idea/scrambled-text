@@ -73,14 +73,14 @@ export const useScrambledText = ({
     if (config && config.amount !== undefined) return () => undefined
     const timeoutId = setTimeout(() => {
       const elapsed = new Date().getTime() - initialTime
-      const progress =
+      const newProgress =
         1 - Math.min(1, elapsed / (duration || defaults.duration))
       const newText = scramble(text, {
         ...config,
-        amount: progress,
+        amount: newProgress,
         previousText: currentText,
       })
-      dispatch({ type: TICK, newText, progress })
+      dispatch({ type: TICK, newText, progress: newProgress })
     }, interval || defaults.interval)
     return () => clearTimeout(timeoutId)
   }, [currentText, progress, initialTime])
