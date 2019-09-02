@@ -1,4 +1,5 @@
 <div align="center">
+<h1>WbLhpMzz6 Nk4S → OpnQf8yz2 DtPG → zctW7JuTI 74Dm → 2c4azibbm S9bv → XcFaz2XWd zpqv → rcraHL3md 6Edg → Ucraij1bd yeZl → 8craKbKSd TePq → 3craBbs0d Teut → ncramb47d TePt → 2crambfed TeGt → Scrambhed Tewt → Scrambled Te7t → <strong><em>Scrambled Text</em></strong></h1>
   <a href="https://npmjs.com/package/scrambled-text">
     <img alt="NPM Version" src="https://img.shields.io/npm/v/scrambled-text.svg" />
   </a>
@@ -12,8 +13,6 @@
     <img alt="Maintenance Status" src="https://img.shields.io/badge/maintenance-active-green.svg" />
   </a>
 </div>
-
-# HsIGpfOwL Rn0y → Scrambled Text
 
 A simple & configurable utility function for scrambling text. Low bundle size, 0 dependencies, and written in Typescript.
 
@@ -143,7 +142,23 @@ scramble('Hello World', { characterSet: '♠︎♣︎♥︎♦︎' }) // => '...
 
 A helper function to generate an array of progressively scrambled/unscrambled text.
 
-_⚠️ In development, coming soon_
+```ts
+sequence(initialText: string, steps: number, config?: ScrambledTextProps) => string[]
+```
+
+```
+import { sequence } from 'scrambled-text'
+
+sequence('abcd', 5, { sequential: true })
+// =>
+// [
+//   'z9bq',
+//   'a8nL',
+//   'ab1z',
+//   'abcR',
+//   'abcd'
+// ]
+```
 
 ### React: `<ScrambledText />` component
 

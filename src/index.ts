@@ -1,2 +1,2 @@
-export { scramble, ScrambleOptions } from './scramble'
+export { scramble, sequence, ScrambleOptions } from './scramble'
 export * from './react'

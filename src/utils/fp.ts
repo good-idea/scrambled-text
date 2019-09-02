@@ -26,3 +26,5 @@ export function shuffle<T>(arr: T[]): T[] {
   }
   return a
 }
+
+export const tail = <T>(list: T[]): T => list[list.length - 1]
