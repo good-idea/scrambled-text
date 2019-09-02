@@ -1,5 +1,8 @@
 import typescript from 'rollup-plugin-typescript2'
 
+import commonjs from 'rollup-plugin-commonjs'
+
+import { sizeSnapshot } from 'rollup-plugin-size-snapshot'
 import pkg from './package.json'
 
 export default {
@@ -13,6 +16,8 @@ export default {
     ...Object.keys(pkg.peerDependencies || {}),
   ],
   plugins: [
+    sizeSnapshot(),
+    commonjs,
     typescript({
       typescript: require('typescript'),
     }),

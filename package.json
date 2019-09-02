@@ -94,6 +94,8 @@
     "react-test-renderer": "^16.9.0",
     "rimraf": "^3.0.0",
     "rollup": "^1.20.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-size-snapshot": "^0.10.0",
     "rollup-plugin-typescript2": "^0.24.0",
     "semantic-release": "^15.13.24",
     "standard-version": "^7.0.0",
@@ -131,6 +133,6 @@
   "dependencies": {
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.3",
-    "lodash": "^4.17.15"
+    "lodash-es": "^4.17.15"
   }
 }
