@@ -57,6 +57,9 @@
   "engines": {
     "node": ">=8.9"
   },
+  "dependencies": {
+   "lodash": "^4.17.15"
+  },
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
@@ -69,8 +72,11 @@
     "@semantic-release/npm": "^5.1.15",
     "@semantic-release/release-notes-generator": "^7.3.0",
     "@testing-library/react": "^9.1.3",
+    "@types/jest": "^24.0.18",
     "@types/lodash": "^4.14.138",
+    "@types/lodash-es": "^4.17.3",
     "@types/lolex": "^3.1.1",
+    "@types/node": "^12.7.3",
     "@types/prettier": "^1.18.2",
     "@types/react": "16.9.0",
     "@types/react-dom": "16.9.0",
@@ -129,10 +135,5 @@
     "exclude": [
       "**/*.spec.js"
     ]
-  },
-  "dependencies": {
-    "@types/jest": "^24.0.18",
-    "@types/node": "^12.7.3",
-    "lodash-es": "^4.17.15"
   }
 }
