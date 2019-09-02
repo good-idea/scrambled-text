@@ -162,7 +162,7 @@ function MyComponent() {
 | text     | `string`          | yes      |                | The text you want to scramble                                                                                          |
 | config   | `ScrambleOptions` | no       | default config | The same configuration options as above                                                                                |
 | running  | `boolean`         | no       | `true`         | When set to `false`, the component will not animate                                                                    |
-| interval | `number`          | no       | `50`           | The interval at which the text will be re-scrambled (in ms)                                                            |
+| interval | `number`          | no       | `30`           | The interval at which the text will be re-scrambled (in ms)                                                            |
 | duration | `number`          | no       | `3000`         | The total duration of the unscrambling (in ms)                                                                         |
 | reverse  | `boolean`         | no       | `false`        | If `true`, the animation starts with un-scrambled text and progressively scrambles it _⚠️ In development, coming soon_ |
 | wrapper  | `React.Component` | no       | 'span'         | An optional wrapper component _⚠️ In development, coming soon_                                                         |
