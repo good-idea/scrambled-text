@@ -155,5 +155,6 @@ describe('scramble', () => {
 
   it('should always return the previous text, even when config.amount is lower', async () => {
     expect(scramble('abcd', { previousText: 'ab7z', amount: 0 })).toMatch(/^ab/)
+    expect(scramble('abcd', { previousText: '9hcd', amount: 0 })).toMatch(/cd$/)
   })
 })

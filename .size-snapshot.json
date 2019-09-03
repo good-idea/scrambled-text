@@ -1,13 +1,13 @@
 {
   "lib/index.js": {
-    "bundled": 5506,
-    "minified": 2948,
-    "gzipped": 1309
+    "bundled": 7834,
+    "minified": 3795,
+    "gzipped": 1526
   },
   "lib/index.es.js": {
-    "bundled": 5363,
-    "minified": 2812,
-    "gzipped": 1253,
+    "bundled": 7679,
+    "minified": 3647,
+    "gzipped": 1469,
     "treeshaked": {
       "rollup": {
         "code": 14,

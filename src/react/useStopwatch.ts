@@ -10,10 +10,6 @@ interface UseStopwatchOptions {
   interval: number
 }
 
-// interface UseStopwatchArguments {
-//   running: boolean
-// }
-
 interface UseStopwatchValues {
   elapsed: number
 }
@@ -37,6 +33,7 @@ interface RestartAction {
 
 interface TickAction {
   type: typeof TICK
+  elapsed: number
 }
 
 type Action = StartAction | StopAction | RestartAction | TickAction
@@ -56,11 +53,9 @@ const reducer = (state: State, action: Action): State => {
         startTime: undefined,
       }
     case TICK:
-      const elapsed =
-        new Date().getTime() - state.startTime + state.previouslyElapsed
       return {
         ...state,
-        elapsed,
+        elapsed: action.elapsed,
       }
     default:
       return state
@@ -87,11 +82,14 @@ export const useStopwatch = (
     elapsed: 0,
     previouslyElapsed: 0,
   })
-  const { elapsed } = state
+  const { elapsed, startTime } = state
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      dispatch({ type: TICK })
+      const newElapsed =
+        new Date().getTime() - state.startTime + state.previouslyElapsed
+
+      dispatch({ type: TICK, elapsed: newElapsed })
     }, interval)
     if (!running) {
       dispatch({ type: STOP })
@@ -99,10 +97,11 @@ export const useStopwatch = (
     }
     if (running && state.startTime === undefined) {
       dispatch({ type: START })
+      clearTimeout(timeoutId)
     }
 
     return () => clearTimeout(timeoutId)
-  }, [running, elapsed])
+  }, [running, elapsed, startTime])
 
   return { elapsed }
 }
