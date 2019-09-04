@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/good-idea/scrambled-text/compare/v1.1.0...v1.2.0) (2019-09-02)
+
+
+### Features
+
+* add sequence ([5a1d5d3](https://github.com/good-idea/scrambled-text/commit/5a1d5d3)), closes [#5](https://github.com/good-idea/scrambled-text/issues/5)
+
 # [1.1.0](https://github.com/good-idea/scrambled-text/compare/v1.0.2...v1.1.0) (2019-09-02)
 
 
