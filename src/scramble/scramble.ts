@@ -57,7 +57,7 @@ function randomFromArray<T>(arr: T[]): T {
 
 export const scrambleCharWithCharSet = (
   charset: string[],
-  preserveCasing: boolean,
+  preserveCasing?: boolean,
 ) => {
   function scrambleChar(char: string): string {
     if (char.length > 1)
