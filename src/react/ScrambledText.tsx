@@ -12,21 +12,15 @@ export const ScrambledText = ({
   interval,
   duration,
   wrapper,
-  debug,
 }: ScrambledTextProps) => {
-  const { elapsed, currentText } = useScrambledText({
+  const { currentText } = useScrambledText({
     text,
     config,
     running,
     interval,
     duration,
-    debug,
   })
 
   const Tag = wrapper || 'span'
-  return (
-    <Tag>
-      {elapsed} - {currentText}
-    </Tag>
-  )
+  return <Tag>{currentText}</Tag>
 }

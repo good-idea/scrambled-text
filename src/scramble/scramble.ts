@@ -1,12 +1,4 @@
-import {
-  shuffle,
-  identity,
-  split,
-  pipe,
-  filter,
-  slice,
-  reverse,
-} from '../utils/fp'
+import { shuffle, identity, split, pipe, slice, reverse } from '../utils/fp'
 //
 // import identity from 'lodash-es/identity'
 // import split from 'lodash-es/split'
@@ -63,17 +55,21 @@ function randomFromArray<T>(arr: T[]): T {
   return arr[index]
 }
 
-export const scrambleCharWithCharSet = (charset: string[]) => {
+export const scrambleCharWithCharSet = (
+  charset: string[],
+  preserveCasing: boolean,
+) => {
   function scrambleChar(char: string): string {
     if (char.length > 1)
       throw new Error(
         `You can only scramble one character at a time. Received: ${char}`,
       )
     const randomChar = randomFromArray(charset)
-    if (charset.length === 1) return randomChar
+    const casedChar = preserveCasing ? matchCase(randomChar, char) : randomChar
+    if (charset.length === 1) return casedChar
     /* If there is more than one possible character, do not return
      * one that matches the input. Instead, call this function again */
-    return randomChar === char ? scrambleChar(char) : randomChar
+    return casedChar === char ? scrambleChar(char) : casedChar
   }
 
   return scrambleChar
@@ -90,21 +86,18 @@ export const scramble = (
     ...userOptions,
   }
   const charSet = config.characterSet.split('')
-  const scrambleChar = scrambleCharWithCharSet(charSet)
+  const scrambleChar = scrambleCharWithCharSet(charSet, config.preserveCasing)
 
   const scrambleLimit = Math.round(config.amount * text.length)
 
   const characterIsUnscrambled = (index: number): boolean =>
-    config.previousText && config.previousText.length
-      ? config.previousText.charAt(index) !== text.charAt(index)
-      : true
+    config.previousText.charAt(index) === text.charAt(index)
 
   const charactersToScramble = pipe(
     split(''),
     getIndices,
     reverse,
     config.sequential ? identity : shuffle,
-    config.previousText ? filter(characterIsUnscrambled) : identity,
     slice(0, scrambleLimit),
   )(text)
 
@@ -112,9 +105,9 @@ export const scramble = (
     .split('')
     .map((char, index) => {
       if (config.preserveWhitespace && /\s/.test(char)) return char
+      if (config.previousText && characterIsUnscrambled(index)) return char
       if (!charactersToScramble.includes(index)) return char
-      const scrambled = scrambleChar(char)
-      return config.preserveCasing ? matchCase(scrambled, char) : scrambled
+      return scrambleChar(char)
     })
     .join('')
 }

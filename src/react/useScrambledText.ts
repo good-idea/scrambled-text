@@ -63,8 +63,7 @@ export const useScrambledText = ({
   running: userRunning,
   interval: userInterval,
   duration: userDuration,
-}: // debug,
-ScrambledTextParams): DebugState => {
+}: ScrambledTextParams): DebugState => {
   const duration = userDuration || defaults.duration
   const running = userRunning !== undefined ? userRunning : defaults.running
   const interval = userInterval || defaults.interval
@@ -76,9 +75,9 @@ ScrambledTextParams): DebugState => {
   })
 
   useEffect(() => {
+    if (elapsed === 0) return
     if (config && config.amount !== undefined) return
     const progress = elapsed / duration
-    // if (debug) console.log(interval, elapsed, progress)
     const newText = scramble(text, {
       ...config,
       amount: 1 - progress,

@@ -68,7 +68,7 @@ describe('ScrambledText', () => {
     clock.uninstall()
   })
 
-  it.skip('should render the completed text at the given intervals', async () => {
+  it('should progressively render the completed text at the given intervals', async () => {
     const clock = lolex.install()
     const tick = async (amt: number = 100) => {
       act(() => {
@@ -77,27 +77,49 @@ describe('ScrambledText', () => {
       await wait()
     }
     const text = 'abcd'
+    const config = {
+      sequential: true,
+    }
     const { container } = render(
-      <ScrambledText interval={100} duration={1000} text={text} />,
+      <ScrambledText
+        interval={100}
+        duration={390}
+        text={text}
+        config={config}
+      />,
     )
-    const text1 = container.textContent
-    console.log(container.textContent)
     await tick(100)
-    console.log(container.textContent)
-    expect(container.textContent).toBe(text1)
+    /* 25% complete, one character should be unscrambled */
+    expect(container.textContent).toMatch(/^a/)
+    expect(container.textContent).not.toMatch(/^ab/)
+
     await tick(100)
+    /* 50% complete, two characters should be unscrambled */
+    expect(container.textContent).toMatch(/^ab/)
+    expect(container.textContent).not.toMatch(/^abc/)
 
-    const text2 = container.textContent
-    expect(text2).not.toBe(text1)
-    await tick(40)
-    expect(container.textContent).toBe(text2)
+    await tick(20)
+    /* 55% complete, two characters should be unscrambled */
+    expect(container.textContent).toMatch(/^ab/)
+    expect(container.textContent).not.toMatch(/^abc/)
 
-    await tick(15)
-    expect(container.textContent).not.toBe(text2)
+    await tick(80)
+    /* 75% complete, three characters should be unscrambled */
+    expect(container.textContent).toMatch(/^abc/)
+    expect(container.textContent).not.toMatch(/^abcd$/)
+
+    await tick(100)
+    /* 100% complete, all characters should be unscrambled */
+    expect(container.textContent).toMatch(/^abcd$/)
+
+    await tick(100)
+    /* past complete, all characters should be unscrambled */
+    expect(container.textContent).toMatch(/^abcd$/)
+
     clock.uninstall()
   })
 
-  it.only('should progressively display "unscrambled" text for the entire duration', async () => {
+  it('should progressively display "unscrambled" text for the entire duration', async () => {
     const clock = lolex.install()
     const text = 'abcd'
     const config = {
@@ -173,7 +195,7 @@ describe('ScrambledText', () => {
     expect(container.textContent.length).toBe(text.length)
   })
 
-  it.only('should only count the duration when running === true', async () => {
+  it.skip('should only count the duration when running === true', async () => {
     const clock = lolex.install()
     const text = 'abcd'
     const config = {
