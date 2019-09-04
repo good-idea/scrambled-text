@@ -1,3 +1,16 @@
+# [1.3.0](https://github.com/good-idea/scrambled-text/compare/v1.2.0...v1.3.0) (2019-09-04)
+
+
+### Bug Fixes
+
+* wip trying to fix this hell ([7ee2dde](https://github.com/good-idea/scrambled-text/commit/7ee2dde))
+
+
+### Features
+
+* add useStopwatch to use in useScrambledText ([46d7b79](https://github.com/good-idea/scrambled-text/commit/46d7b79))
+* start + stop timers ([54f3bc4](https://github.com/good-idea/scrambled-text/commit/54f3bc4))
+
 # [1.2.0](https://github.com/good-idea/scrambled-text/compare/v1.1.0...v1.2.0) (2019-09-02)
 
 
