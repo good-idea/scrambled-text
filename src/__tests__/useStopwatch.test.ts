@@ -26,19 +26,25 @@ describe('useStopwatch', () => {
   })
 
   it('should return the correct elapsed time', async () => {
-    const { result } = renderHook(() => useStopwatch(true))
+    const { result } = renderHook(() => useStopwatch(true, { interval: 100 }))
     expect(result.current.elapsed).toBe(0)
     await tick(100)
     expect(result.current.elapsed).toBe(100)
     await tick(100)
     expect(result.current.elapsed).toBe(200)
-    await tick(300)
+    await tick(100)
+    await tick(100)
+    await tick(100)
     expect(result.current.elapsed).toBe(500)
   })
 
   it('should start and stop the counter according to "running"', async () => {
-    const { result, rerender } = renderHook((running: boolean = true) =>
-      useStopwatch(running),
+    const defaultConfig = {
+      interval: 100,
+    }
+    const { result, rerender } = renderHook(
+      (running: boolean = true, config: any = defaultConfig) =>
+        useStopwatch(running, config),
     )
     expect(result.current.elapsed).toBe(0)
     await tick(100)
