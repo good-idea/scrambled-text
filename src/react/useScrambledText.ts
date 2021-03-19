@@ -2,15 +2,12 @@ import { useEffect, useReducer } from 'react'
 import { scramble, ScrambleOptions } from '../scramble'
 import { useStopwatch } from './useStopwatch'
 
-export interface ScrambledTextParams {
-  /* The text to be scrambled */
-  text: string
+export interface UseScrambledTextConfig {
+  config?: Partial<ScrambleOptions>
   /* if true, cycles through random text for the duration,
    * progressively revealing the initial text.
    * default: true */
   running?: boolean
-  /* Config for the scrambler */
-  config?: Partial<ScrambleOptions>
   /* The interval at which the text should be re-scrambled, in MS
    * default: 30 */
   interval?: number
@@ -20,7 +17,7 @@ export interface ScrambledTextParams {
   debug?: boolean
 }
 
-interface State {
+interface ReducerState {
   currentText: string
   progress: number
 }
@@ -33,7 +30,7 @@ interface Action {
 
 const TICK = 'TICK'
 
-const reducer = (state: State, action: Action): State => {
+const reducer = (state: ReducerState, action: Action): ReducerState => {
   switch (action.type) {
     case TICK:
       return {
@@ -53,22 +50,26 @@ const defaults = {
   duration: 3000,
 }
 
-interface DebugState extends State {
+interface UseScrambledTextState extends ReducerState {
   elapsed: number
 }
 
-export const useScrambledText = ({
-  text,
-  config,
-  running: userRunning,
-  interval: userInterval,
-  duration: userDuration,
-}: ScrambledTextParams): DebugState => {
-  const duration = userDuration || defaults.duration
-  const running = userRunning !== undefined ? userRunning : defaults.running
-  const interval = userInterval || defaults.interval
+export const useScrambledText = (
+  text: string,
+  options: UseScrambledTextConfig,
+): UseScrambledTextState => {
+  const {
+    running: customRunning,
+    interval: customInterval,
+    duration: customDuration,
+    config,
+  } = options
+  const duration = customDuration || defaults.duration
+  const running = customRunning !== undefined ? customRunning : defaults.running
+  const interval = customInterval || defaults.interval
 
   const { elapsed } = useStopwatch(running, { interval })
+
   const [state, dispatch] = useReducer(reducer, {
     currentText: scramble(text, config),
     progress: 0,
@@ -85,25 +86,6 @@ export const useScrambledText = ({
     })
     dispatch({ type: TICK, progress, newText })
   }, [elapsed])
-
-  // useEffect(() => {
-  //   /** Don't refresh with new values if running is false,
-  //    * or if the user is supplying their own 'amount' for the config */
-  //   if (running === false) return () => undefined
-  //   if (config && config.amount !== undefined) return () => undefined
-  //   const timeoutId = setTimeout(() => {
-  //     const elapsed = new Date().getTime() - initialTime
-  //     const newProgress =
-  //       1 - Math.min(1, elapsed / (duration || defaults.duration))
-  //     const newText = scramble(text, {
-  //       ...config,
-  //       amount: newProgress,
-  //       previousText: currentText,
-  //     })
-  //     dispatch({ type: TICK, newText, progress: newProgress })
-  //   }, interval || defaults.interval)
-  //   return () => clearTimeout(timeoutId)
-  // }, [currentText, progress, initialTime])
 
   return { ...state, elapsed }
 }

@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { useScrambledText, ScrambledTextParams } from './useScrambledText'
+import { useScrambledText, UseScrambledTextConfig } from './useScrambledText'
 
-interface ScrambledTextProps extends ScrambledTextParams {
+interface ScrambledTextProps extends UseScrambledTextConfig {
+  text: string
   wrapper?: string | React.ComponentType
 }
 
@@ -13,8 +14,7 @@ export const ScrambledText = ({
   duration,
   wrapper,
 }: ScrambledTextProps) => {
-  const { currentText } = useScrambledText({
-    text,
+  const { currentText } = useScrambledText(text, {
     config,
     running,
     interval,

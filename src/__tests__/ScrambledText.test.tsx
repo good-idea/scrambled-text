@@ -1,28 +1,9 @@
 import * as React from 'react'
 import * as lolex from 'lolex'
-import { act, wait, render } from '@testing-library/react'
+import { act, render } from '@testing-library/react'
 import { ScrambledText } from '../react'
 
 jest.useFakeTimers()
-//
-// let clock
-//
-// beforeEach(() => {
-//   clock = lolex.install()
-// })
-//
-// afterEach(() => {
-//   clock.uninstall()
-// })
-//
-//   clock = lolex.install()
-// const tick = async (amt: number = 100) => {
-//   act(() => {
-//     clock.tick(amt)
-//   })
-//   await wait()
-// }
-//   clock.uninstall()
 
 describe('ScrambledText', () => {
   it('should render scrambled text', async () => {
@@ -38,13 +19,11 @@ describe('ScrambledText', () => {
       act(() => {
         clock.tick(amt)
       })
-      await wait()
     }
     const text = 'i love frank'
     const { container } = render(<ScrambledText text={text} />)
     const text1 = container.textContent
     await tick(1000)
-    await wait()
     const text2 = container.textContent
     expect(text1).not.toBe(text2)
     clock.uninstall()
@@ -56,7 +35,6 @@ describe('ScrambledText', () => {
       act(() => {
         clock.tick(amt)
       })
-      await wait()
     }
     const text = 'i love frank'
     const { container } = render(<ScrambledText running={false} text={text} />)
@@ -74,7 +52,6 @@ describe('ScrambledText', () => {
       act(() => {
         clock.tick(amt)
       })
-      await wait()
     }
     const text = 'abcd'
     const config = {
@@ -140,7 +117,6 @@ describe('ScrambledText', () => {
     act(() => {
       clock.tick(100)
     })
-    await wait()
 
     // expect(container.textContent).toMatch(/^a/)
     // expect(container.textContent).not.toMatch(/^ab/)
@@ -149,7 +125,6 @@ describe('ScrambledText', () => {
     act(() => {
       clock.tick(100)
     })
-    await wait()
 
     // expect(container.textContent).toMatch(/^ab/)
     // expect(container.textContent).not.toMatch(/^abc/)
@@ -158,7 +133,6 @@ describe('ScrambledText', () => {
     act(() => {
       clock.tick(100)
     })
-    await wait()
 
     // expect(container.textContent).toMatch(/^abc/)
     // expect(container.textContent).not.toMatch(/^abcd/)
@@ -167,7 +141,6 @@ describe('ScrambledText', () => {
     act(() => {
       clock.tick(100)
     })
-    await wait()
 
     // expect(container.textContent).toMatch(/^abcd$/)
     clock.uninstall()
@@ -213,7 +186,6 @@ describe('ScrambledText', () => {
       act(() => {
         clock.tick(amt)
       })
-      await wait()
     }
     const { rerender, container } = render(
       <ScrambledText {...props} running={false} />,
@@ -266,7 +238,6 @@ describe('ScrambledText', () => {
     /* 300ms have elapsed while running === true.
      * The text should now have three unscrambled characters */
     const text4 = container.textContent
-    console.log(text4)
     expect(text4).not.toBe(text3)
     // expect(text4).toMatch(/^abc/)
     // expect(text4).not.toMatch(/^abcd$/)

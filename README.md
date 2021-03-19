@@ -16,7 +16,7 @@
 
 A simple & configurable utility function for scrambling text. Low bundle size, 0 dependencies, and written in Typescript.
 
-**Bonus** React component `<ScrambledText />` and hook `useScrambledText`
+**Bonus** React component `<ScrambledText />` and hook `useScrambledText` that will animate the un-scrambling of the text.
 
 ## Installation
 
@@ -45,10 +45,10 @@ By default, the function will:
 All of this is configurable by passing in a `config` object as the second parameter:
 
 ```ts
-scramble('I Love Dogs', config)
+scramble(text: string, options: ScrambleOptions)
 ```
 
-_Options:_
+`ScrambleOptions`:
 
 | parameter          | type    | default     | description                                                                                                                                    |
 | ------------------ | ------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -176,13 +176,15 @@ function MyComponent() {
 }
 ```
 
+#### Configuration:
+
 `ScrambledTextProps`:
 
 | prop     | type                              | required | default        | description                                                                                                            |
 | -------- | --------------------------------- | -------- | -------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | text     | `string`                          | yes      |                | The text you want to scramble                                                                                          |
 | config   | `ScrambleOptions`                 | no       | default config | The same configuration options as above                                                                                |
-| running  | `boolean`                         | no       | `true`         | When set to `false`, the component will not animate                                                                    |
+| running  | `boolean`                         | no       | `true`         | When set to `false`, the component will not animate. You can toggle this to pause & start the scrambling.                                                 |
 | interval | `number`                          | no       | `30`           | The interval at which the text will be re-scrambled (in ms)                                                            |
 | duration | `number`                          | no       | `3000`         | The total duration of the unscrambling (in ms)                                                                         |
 | reverse  | `boolean`                         | no       | `false`        | If `true`, the animation starts with un-scrambled text and progressively scrambles it _⚠️ In development, coming soon_ |
@@ -219,17 +221,40 @@ const MyWrapper = ({ children }) => (
 ### React: `useScrambledText`
 
 ```ts
-useScrambledText(initialText: string, config: ScrambledTextProps) => {
-  currentText: string,
-  progress: number
-}
+useScrambledText(initialText: string, config: UseScrambledTextConfig): UseScrabledTextState
 ```
 
 This is basically the same behavior as the component, but within a hook. The configuration is the same as the component, but the `wrapper` option will be ignored.
 
 It returns the latest scrambled text (`currentText`) as well as the total progress (`progress`) (`0-1`)
 
-Usage:
+#### Hook Configuration:
+
+`UseScrambledTextConfig`: All of `ScrambleOptions` (see above) and:
+
+| prop     | type                              | required | default        | description                                                                                                            |
+| -------- | --------------------------------- | -------- | -------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| config   | `ScrambleOptions`                 | no       | default config | The same configuration options as above                                                                                |
+| running  | `boolean`                         | no       | `true`         | When set to `false`, the component will not animate. You can toggle this to pause & start the scrambling.                                                                    |
+| interval | `number`                          | no       | `30`           | The interval at which the text will be re-scrambled (in ms)                                                            |
+| duration | `number`                          | no       | `3000`         | The total duration of the unscrambling (in ms)                                                                         |
+| reverse  | `boolean`                         | no       | `false`        | If `true`, the animation starts with un-scrambled text and progressively scrambles it _⚠️ In development, coming soon_ |
+| wrapper  | `string` or `React.ComponentType` | no       | 'span'         | An optional wrapper component                                                                                          |
+
+Returns `UseScrambledTextState`:
+
+| prop | type | description |
+| ---- | ---- | ----------- |
+| currentText | string | The scrambled text |
+| progress | number | The progress of the un-scrambling, from `0` to `1` |
+| elapsed | number | The elapsed time in `ms` |
+
+
+
+#### Examples
+
+
+*Display scrambled text with a progress indicator:*
 
 ```ts
 import { useScrambledText } from 'scrambled-text'
@@ -242,6 +267,34 @@ function MyComponent() {
     <div>
       <p>{currentText}</p>
       <h5>Progress: ${Math.round(progress * 100)}%</h5>
+    </div>
+  )
+}
+```
+
+*Start & Stop*:
+
+```ts
+import React, { useState } from 'react'
+import { useScrambledText } from 'scrambled-text'
+
+function MyComponent() {
+  const [running, setRunning] = useState(false)
+  const { currentText } = useScrambledText('Hello World', {
+    duration: 10000,
+    running
+  })
+
+  const toggleRunning = () => setRunning(!running)
+
+  const buttonLabel = running ? 'Stop' : 'Start'
+
+  return (
+    <div>
+      <p>{currentText}</p>
+      <button type="button" onClick={toggleRunning}>
+        {buttonLabel}
+      </button>
     </div>
   )
 }
