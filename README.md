@@ -18,6 +18,23 @@ A simple & configurable utility function for scrambling text. Low bundle size, 0
 
 **Bonus** React component `<ScrambledText />` and hook `useScrambledText` that will animate the un-scrambling of the text.
 
+
+<!-- toc -->
+- [Installation](#installation)
+- [API](#api)
+  - [`scramble`](#scramble)
+    - [Configuration](#configuration)
+    - [Examples](#examples)
+  - [`sequence`](#sequence)
+  - [React: `<ScrambledText />` component](#react-scrambledtext--component)
+    - [Configuration:](#configuration)
+    - [Examples](#examples-1)
+  - [React: `useScrambledText`](#react-usescrambledtext)
+    - [Hook Configuration:](#hook-configuration)
+    - [Examples](#examples-2)
+
+<!-- tocstop -->
+
 ## Installation
 
 `npm install scrambled-text` or `yarn install scrambled-text`
@@ -248,7 +265,6 @@ Returns `UseScrambledTextState`:
 | currentText | string | The scrambled text |
 | progress | number | The progress of the un-scrambling, from `0` to `1` |
 | elapsed | number | The elapsed time in `ms` |
-
 
 
 #### Examples
