@@ -51,6 +51,12 @@ jobs:
         with:
           commit-filter: 'skip-ci'
 
+      - name: Env Check
+        run: |
+          echo "${{ secrets.SEMANTIC_RELEASE_GH_TOKEN }}"
+          echo '${{ secrets.SEMANTIC_RELEASE_GH_TOKEN }}'
+          echo ${{ secrets.SEMANTIC_RELEASE_GH_TOKEN }}
+
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
