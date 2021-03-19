@@ -1,6 +1,5 @@
 import lolex from 'lolex'
 import { act, renderHook } from '@testing-library/react-hooks'
-import { wait } from '@testing-library/react'
 import { useStopwatch } from '../react/useStopwatch'
 
 let clock
@@ -16,7 +15,6 @@ const tick = async (amt: number = 100) => {
   act(() => {
     clock.tick(amt)
   })
-  await wait()
 }
 
 describe('useStopwatch', () => {
@@ -42,9 +40,11 @@ describe('useStopwatch', () => {
     const defaultConfig = {
       interval: 100,
     }
-    const { result, rerender } = renderHook(
-      (running: boolean = true, config: any = defaultConfig) =>
-        useStopwatch(running, config),
+    const {
+      result,
+      rerender,
+    } = renderHook((running: boolean = true, config: any = defaultConfig) =>
+      useStopwatch(running, config),
     )
     expect(result.current.elapsed).toBe(0)
     await tick(100)
