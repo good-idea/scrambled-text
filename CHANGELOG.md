@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/good-idea/scrambled-text/compare/v1.4.0...v1.4.1) (2021-03-19)
+
+
+### Bug Fixes
+
+* version bump ([a8b175f](https://github.com/good-idea/scrambled-text/commit/a8b175f281cd6dc24f5a62533227eba60ae2ee92))
+
 # [1.4.0](https://github.com/good-idea/scrambled-text/compare/v1.3.0...v1.4.0) (2021-03-19)
 
 
