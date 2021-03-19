@@ -41,7 +41,7 @@
     "docs:toc": "markdown-toc -i CONTRIBUTING.md && markdown-toc -i README.md",
     "reset": "git clean -dfx && git reset --hard && npm i",
     "prepare-release": "run-s all version doc:publish",
-    "semantic-release": "semantic-release"
+    "release": "semantic-release"
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
