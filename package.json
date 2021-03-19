@@ -130,10 +130,10 @@
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "pretty-quick --staged"
     }
- },
-	"lint-staged": {
-		"**/*.md": "markdown-toc-gen insert",
-		"*.ts": "eslint --cache",
-		"*.tsx": "eslint --cache"
-	}
+  },
+  "lint-staged": {
+    "**/*.md": "markdown-toc-gen insert",
+    "*.ts": "eslint --cache",
+    "*.tsx": "eslint --cache"
+  }
 }

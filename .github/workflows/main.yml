@@ -1,5 +1,5 @@
 name: CI
-on: 
+on:
   push:
     branches:
       - main
@@ -43,7 +43,7 @@ jobs:
 
   publish:
     name: Publish to NPM
-    needs: test 
+    needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
@@ -74,7 +74,7 @@ jobs:
       - name: Build Packages
         run: yarn build
 
-     - name: Semantic Release
+      - name: Semantic Release
         run: |
           npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}" 
           yarn release
