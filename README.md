@@ -112,7 +112,11 @@ scramble('Hello World', { preserveCasing: true }) // => 'Nu87w M2zcu'
 
 _`previousText`_
 
-This option can be provided to progressively "un-scramble" a string. This is mostly used internally, and other exports make this easier. See `sequence`, or the React component or hook.
+This option can be provided to prevent particular characters at a particular position from being scrambled. Any characters within this string *that also match the characters in the text to scramble* will not be scrambled. For instance:
+
+Given the text-to-scramble as `'Hello'` and the previous text as `'zzllo`, the returned, scrambled text will always end with `llo`.
+
+This is mostly used internally for generating or animating a sequence of progressively un-scrambled text. Other exports from this package make this easier: See [`sequence`](#sequence), or the [React component](#react-scrambledtext--component) or [hook](#react-usescrambledtext).
 
 ```ts
 const text1 = scramble('Hello World') // => 'PKoa5 gD8Uf'
