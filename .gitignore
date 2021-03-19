@@ -5,6 +5,7 @@ test
 src/**.js
 .idea/*
 .rpt2_cache
+.eslintcache
 
 coverage
 .nyc_output
