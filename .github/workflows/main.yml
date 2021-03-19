@@ -51,15 +51,6 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.SEMANTIC_RELEASE_GH_TOKEN }}
-
-      - uses: mstachniuk/ci-skip@v1
-        with:
-          commit-filter: 'skip-ci'
-
       - name: Git Identity
         if: ${{ env.CI_SKIP == 'false' }}
         run: |
@@ -69,6 +60,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.SEMANTIC_RELEASE_GH_TOKEN }}
+
+      - uses: mstachniuk/ci-skip@v1
+        with:
+          commit-filter: 'skip-ci'
 
       - uses: actions/cache@v2
         if: ${{ env.CI_SKIP == 'false' }}
